@@ -325,15 +325,12 @@ class MicrosoftViewerState extends State<MicrosoftViewer> {
     );
 
   }
-  Widget customWidget(Widget child){
-    if(!widget.fixedHeight) {
-      return Expanded(child: child);
-    }else{
-      return Column(
-        children: [
-          Expanded(child: child),
-        ],
-      );
-    }
+  Widget customWidget(Widget child) {
+    // Always wrap in a Column to ensure Expanded has a proper parent
+    return Column(
+      children: [
+        Expanded(child: child),
+      ],
+    );
   }
 }
