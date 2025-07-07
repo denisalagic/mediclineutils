@@ -17,7 +17,7 @@ class ProgressIndicatorState extends State<ProgressIndicatorView>
   Widget build(BuildContext context) {
 
     return Container(
-      color: Colors.white,
+      color: Colors.grey.shade50,
       height: widget.height,
       width: widget.width,
       child: Column(
@@ -28,18 +28,6 @@ class ProgressIndicatorState extends State<ProgressIndicatorView>
            SizedBox(
             height: widget.height*.1,
           ),
-          ClipRRect(
-            child: ImageFiltered(
-              imageFilter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-              child: Image.asset(
-                'assets/ka_logo.png',
-                package: "microsoft_viewer",
-                width: 50,
-                height: 50,
-              ),
-            ),
-          ),
-
         ],
       ),
     );
