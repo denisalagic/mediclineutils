@@ -633,7 +633,12 @@ class WordProcessor {
       for (int i = 0; i < wordDocument.pages.length; i++) {
         List<Widget> pageWidgets = [];
         for (int j = 0; j < wordDocument.pages[i].components.length; j++) {
-          List<Widget> tempPageWidgets=await compute(getComponents, GetComponentsParams(wordDocument.pages[i].components[j],stylesList,pageWidgets,wordDocument));
+          List<Widget> tempPageWidgets;
+          if (kIsWeb) {
+            tempPageWidgets = getComponents(GetComponentsParams(wordDocument.pages[i].components[j],stylesList,pageWidgets,wordDocument));
+          } else {
+            tempPageWidgets = await compute(getComponents, GetComponentsParams(wordDocument.pages[i].components[j],stylesList,pageWidgets,wordDocument));
+          }
           pageWidgets.addAll(tempPageWidgets);
         }
         if (wordDocument.pages[i].footNotes.isNotEmpty) {
