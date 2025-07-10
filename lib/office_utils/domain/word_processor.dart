@@ -664,6 +664,14 @@ class WordProcessor {
           }
         }
         tempList.add(Container(
+          color: Colors.grey,
+          width: double.infinity,
+          margin: const EdgeInsets.all(8),
+          child: Column(
+            children: pageWidgets,
+          ),
+        ));
+        /*tempList.add(Container(
           color: Colors.white,
           constraints: kIsWeb
               ? const BoxConstraints(
@@ -687,7 +695,7 @@ class WordProcessor {
               children: pageWidgets,
             ),
           ),
-        ));
+        ));*/
       }
     }
     return tempList;
