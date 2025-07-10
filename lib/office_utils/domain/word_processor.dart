@@ -666,8 +666,8 @@ class WordProcessor {
         tempList.add(Container(
           color: Colors.white,
           constraints: BoxConstraints(
-              minHeight: wordDocument.pageSize.height,
-              minWidth: wordDocument.pageSize.width),
+              maxHeight: wordDocument.pageSize.height,
+              maxWidth: wordDocument.pageSize.width),
           margin: const EdgeInsets.all(8),
           child: Padding(
             padding: EdgeInsets.only(
