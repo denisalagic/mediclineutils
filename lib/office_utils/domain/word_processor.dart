@@ -664,7 +664,7 @@ class WordProcessor {
           }
         }
         tempList.add(Container(
-          color: Colors.grey,
+          color: Colors.white,
           width: double.infinity,
           margin: const EdgeInsets.all(8),
           child: Column(
