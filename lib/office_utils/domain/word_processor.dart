@@ -666,9 +666,15 @@ class WordProcessor {
         tempList.add(Container(
           color: Colors.white,
           width: double.infinity,
+          constraints: kIsWeb
+              ? const BoxConstraints(minHeight: 600)
+              : null,
           margin: const EdgeInsets.all(8),
-          child: Column(
-            children: pageWidgets,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: pageWidgets,
+            ),
           ),
         ));
         /*tempList.add(Container(
@@ -861,8 +867,7 @@ class WordProcessor {
               decorationStyle: TextDecorationStyle.double);
         }
         if (paraStyles.formats.contains("strike")) {
-          textStyle =
-              textStyle.copyWith(decoration: TextDecoration.lineThrough);
+          textStyle = textStyle.copyWith(decoration: TextDecoration.lineThrough);
         }
         if (paraStyles.formats.contains("subscript")) {
           textStyle = textStyle
