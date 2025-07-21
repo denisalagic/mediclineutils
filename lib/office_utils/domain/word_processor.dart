@@ -1404,8 +1404,7 @@ class WordProcessor {
   }
   static List<Widget> getComponents(GetComponentsParams params){
     List<Widget> pageWidgets=[];
-    if (params.component.runtimeType.toString() ==
-        "Paragraph") {
+    if (params.component is Paragraph) {
       List<MsTextSpan> textSpans =
           params.component.textSpans;
       List<MsImage> images = params.component.images;
@@ -1451,9 +1450,7 @@ class WordProcessor {
       }
       pageWidgets.addAll(getRichText(params.component,
           paragraphWidget, params.stylesList, params.wordDocument));
-    } else if (params.component.runtimeType
-        .toString() ==
-        "MsTable") {
+    } else if (params.component is MsTable) {
       MsTable msTable = params.component;
 
       String tableStyle = getTableStyle(msTable, params.stylesList);
