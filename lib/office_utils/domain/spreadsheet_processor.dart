@@ -8,6 +8,7 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:xml/xml.dart' as xml;
 import 'package:intl/intl.dart';
 
+import '../data/indexed_color.dart';
 import '../models/ms_ss_table.dart';
 import '../models/relationship.dart';
 import '../models/shared_string.dart';
@@ -592,7 +593,7 @@ class SpreadsheetProcessor {
           }
         }
         if(cellStyle.ssFill.id.isNotEmpty){
-/*          if(cellStyle.ssFill.bgClrIndex.isNotEmpty){
+          if(cellStyle.ssFill.bgClrIndex.isNotEmpty){
             String bgColor="#a5c6fa";
             if(int.parse(cellStyle.ssFill.bgClrIndex)<64){
               bgColor=IndexedColor().colors[int.parse(cellStyle.ssFill.bgClrIndex)];
@@ -610,7 +611,8 @@ class SpreadsheetProcessor {
               }
             }
             stylesInner="$stylesInner background-color: $bgColor;";
-          }*/
+          }
+/*
           String? bgColor = ColorUtil.resolveExcelColor(
               cellStyle.ssFill.bgClrIndex,
               cellStyle.ssFill.fgClrTheme,
@@ -620,6 +622,7 @@ class SpreadsheetProcessor {
             stylesInner += " background-color: $bgColor;";
           }
           print("Resolved bgColor for cell: $bgColor (index: ${cellStyle.ssFill.bgClrIndex}, themeId: ${cellStyle.ssFill.fgClrTheme})");
+*/
 
         }
         if(cellStyle.border.id.isNotEmpty){
