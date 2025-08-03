@@ -682,7 +682,7 @@ class SpreadsheetProcessor {
           }
         }
         if(rowStyle.ssFill.id.isNotEmpty){
-          /*if(rowStyle.ssFill.bgClrIndex.isNotEmpty){
+          if(rowStyle.ssFill.bgClrIndex.isNotEmpty){
             String bgColor="#a5c6fa";
             if(int.parse(rowStyle.ssFill.bgClrIndex)<64){
               bgColor=IndexedColor().colors[int.parse(rowStyle.ssFill.bgClrIndex)];
@@ -700,8 +700,8 @@ class SpreadsheetProcessor {
               }
             }
             stylesInner="$stylesInner background-color: $bgColor;";
-          }*/
-          String? bgColor = ColorUtil.resolveExcelColor(
+          }
+          /*String? bgColor = ColorUtil.resolveExcelColor(
               rowStyle.ssFill.bgClrIndex,
               rowStyle.ssFill.fgClrTheme,
               colorSchemes
@@ -709,7 +709,7 @@ class SpreadsheetProcessor {
           if (bgColor != null) {
             stylesInner += " background-color: $bgColor;";
           }
-          print("Resolved bgColor for cell: $bgColor (index: ${rowStyle.ssFill.bgClrIndex}, themeId: ${rowStyle.ssFill.fgClrTheme})");
+          print("Resolved bgColor for cell: $bgColor (index: ${rowStyle.ssFill.bgClrIndex}, themeId: ${rowStyle.ssFill.fgClrTheme})");*/
         }
         if(rowStyle.border.id.isNotEmpty){
 
