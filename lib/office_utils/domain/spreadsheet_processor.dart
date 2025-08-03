@@ -677,7 +677,7 @@ class SpreadsheetProcessor {
           }
         }
         if(rowStyle.ssFill.id.isNotEmpty){
-          /*if(rowStyle.ssFill.bgClrIndex.isNotEmpty){
+          if(rowStyle.ssFill.bgClrIndex.isNotEmpty){
             String bgColor="#a5c6fa";
             if(int.parse(rowStyle.ssFill.bgClrIndex)<64){
               bgColor=IndexedColor().colors[int.parse(rowStyle.ssFill.bgClrIndex)];
@@ -695,7 +695,7 @@ class SpreadsheetProcessor {
               }
             }
             stylesInner="$stylesInner background-color: $bgColor;";
-          }*/
+          }
           String? bgColor = ColorUtil.resolveExcelColor(
               rowStyle.ssFill.bgClrIndex,
               rowStyle.ssFill.fgClrTheme,
