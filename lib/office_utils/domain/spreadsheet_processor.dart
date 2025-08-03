@@ -17,6 +17,7 @@ import '../data/alphabets.dart';
 import '../models/spreadsheet.dart';
 import '../models/ss_color_schemes.dart';
 import '../models/ss_style.dart';
+import '../utils/color_util.dart';
 
 ///Class for processing .xlsx files
 class SpreadsheetProcessor {
@@ -591,7 +592,7 @@ class SpreadsheetProcessor {
           }
         }
         if(cellStyle.ssFill.id.isNotEmpty){
-          if(cellStyle.ssFill.bgClrIndex.isNotEmpty){
+/*          if(cellStyle.ssFill.bgClrIndex.isNotEmpty){
             String bgColor="#a5c6fa";
             if(int.parse(cellStyle.ssFill.bgClrIndex)<64){
               bgColor=IndexedColor().colors[int.parse(cellStyle.ssFill.bgClrIndex)];
@@ -609,7 +610,16 @@ class SpreadsheetProcessor {
               }
             }
             stylesInner="$stylesInner background-color: $bgColor;";
+          }*/
+          String? bgColor = ColorUtil.resolveExcelColor(
+              cellStyle.ssFill.bgClrIndex,
+              cellStyle.ssFill.fgClrTheme,
+              colorSchemes
+          );
+          if (bgColor != null) {
+            stylesInner += " background-color: $bgColor;";
           }
+
         }
         if(cellStyle.border.id.isNotEmpty){
 
@@ -668,7 +678,7 @@ class SpreadsheetProcessor {
           }
         }
         if(rowStyle.ssFill.id.isNotEmpty){
-          if(rowStyle.ssFill.bgClrIndex.isNotEmpty){
+          /*if(rowStyle.ssFill.bgClrIndex.isNotEmpty){
             String bgColor="#a5c6fa";
             if(int.parse(rowStyle.ssFill.bgClrIndex)<64){
               bgColor=IndexedColor().colors[int.parse(rowStyle.ssFill.bgClrIndex)];
@@ -686,6 +696,14 @@ class SpreadsheetProcessor {
               }
             }
             stylesInner="$stylesInner background-color: $bgColor;";
+          }*/
+          String? bgColor = ColorUtil.resolveExcelColor(
+              rowStyle.ssFill.bgClrIndex,
+              rowStyle.ssFill.fgClrTheme,
+              colorSchemes
+          );
+          if (bgColor != null) {
+            stylesInner += " background-color: $bgColor;";
           }
         }
         if(rowStyle.border.id.isNotEmpty){
@@ -924,6 +942,7 @@ class SpreadsheetProcessor {
     }
     return msSsRow;
   }
+
 }
 
 ///class for passing parameters
