@@ -1,3 +1,8 @@
+import 'package:collection/collection.dart';
+
+import '../data/indexed_color.dart';
+import '../models/ss_color_schemes.dart';
+
 class ColorUtil {
   static String? resolveExcelColor(
       String bgClrIndex,
