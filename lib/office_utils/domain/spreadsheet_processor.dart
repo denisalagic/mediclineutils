@@ -618,6 +618,7 @@ class SpreadsheetProcessor {
           if (bgColor != null) {
             stylesInner += " background-color: $bgColor;";
           }
+          print("Resolved bgColor for cell: $bgColor (index: ${cellStyle.ssFill.bgClrIndex}, themeId: ${cellStyle.ssFill.fgClrTheme})");
 
         }
         if(cellStyle.border.id.isNotEmpty){
@@ -704,6 +705,7 @@ class SpreadsheetProcessor {
           if (bgColor != null) {
             stylesInner += " background-color: $bgColor;";
           }
+          print("Resolved bgColor for cell: $bgColor (index: ${rowStyle.ssFill.bgClrIndex}, themeId: ${rowStyle.ssFill.fgClrTheme})");
         }
         if(rowStyle.border.id.isNotEmpty){
 
