@@ -313,6 +313,12 @@ class SpreadsheetProcessor {
         }
         print('Color Scheme: $name, sysClrName: $sysClrName, sysClrLast: $sysClrLast, srgbClr: $srgbClr');
         colorSchemes.add(SSColorSchemes(name, name, sysClrName, sysClrLast, srgbClr));
+        // Extra debug log for color scheme mapping
+        if (srgbClr.isEmpty && sysClrLast.isEmpty) {
+          print('[DEBUG] Color scheme $name has no color value!');
+        } else {
+          print('[DEBUG] Registered color scheme: id=$name, srgbClr=$srgbClr, sysClrLast=$sysClrLast');
+        }
       }
     }
   }
