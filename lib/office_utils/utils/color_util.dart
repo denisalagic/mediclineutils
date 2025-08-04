@@ -34,13 +34,23 @@ class ColorUtil {
         // Standard indexed colors (0-63)
         if (index >= 0 && index < 64) {
           String color = IndexedColor().colors[index];
-          return _applyTint(color, tint);
+          // Only apply tint if present and not '0'
+          if (tint != null && tint.isNotEmpty && tint != "0") {
+            return _applyTint(color, tint);
+          } else {
+            return color;
+          }
         }
 
         // Theme colors (index 64+ or when themeId is provided)
         if (index >= 64 || themeId.isNotEmpty) {
           String resolvedColor = _resolveThemeColor(themeId, colorSchemes);
-          return _applyTint(resolvedColor, tint);
+          // Only apply tint if present and not '0'
+          if (tint != null && tint.isNotEmpty && tint != "0") {
+            return _applyTint(resolvedColor, tint);
+          } else {
+            return resolvedColor;
+          }
         }
       } catch (e) {
         print("Error parsing color index '$bgClrIndex': $e");
@@ -50,7 +60,12 @@ class ColorUtil {
     // Handle theme colors without index
     if (themeId.isNotEmpty) {
       String resolvedColor = _resolveThemeColor(themeId, colorSchemes);
-      return _applyTint(resolvedColor, tint);
+      // Only apply tint if present and not '0'
+      if (tint != null && tint.isNotEmpty && tint != "0") {
+        return _applyTint(resolvedColor, tint);
+      } else {
+        return resolvedColor;
+      }
     }
 
     // Default fallback - return transparent/white
