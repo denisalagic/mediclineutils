@@ -610,6 +610,8 @@ class SpreadsheetProcessor {
                   bgColor="#${clrScheme.srgbClr}";
                 }
               }
+            } else {
+              print("Unknown bgClrIndex: ${cellStyle.ssFill.bgClrIndex}");
             }
             stylesInner="$stylesInner background-color: $bgColor;";
             print("Resolved bgColor for cell: $bgColor (index: ${cellStyle.ssFill.bgClrIndex}, themeId: ${cellStyle.ssFill.fgClrTheme})");
