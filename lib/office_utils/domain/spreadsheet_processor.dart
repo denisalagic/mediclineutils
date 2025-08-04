@@ -293,7 +293,6 @@ class SpreadsheetProcessor {
     var colorSchemeRoot = themeDoc.findAllElements("a:clrScheme");
     if(colorSchemeRoot.isNotEmpty){
       for(var clrSch in colorSchemeRoot.first.childElements){
-        print(clrSch);
         String name="", sysClrName="", sysClrLast="", srgbClr="";
         name=clrSch.name.local;
         var chkSysClr=clrSch.findAllElements("a:sysClr");
@@ -315,7 +314,8 @@ class SpreadsheetProcessor {
           }
         }
         print('Color Scheme: $name, sysClrName: $sysClrName, sysClrLast: $sysClrLast, srgbClr: $srgbClr');
-        colorSchemes.add(SSColorSchemes(colorSchemes.length.toString(), name, sysClrName, sysClrLast, srgbClr));
+        //colorSchemes.add(SSColorSchemes(colorSchemes.length.toString(), name, sysClrName, sysClrLast, srgbClr));
+        colorSchemes.add(SSColorSchemes(name, name, sysClrName, sysClrLast, srgbClr));
       }
     }
   }
