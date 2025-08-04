@@ -616,6 +616,14 @@ class SpreadsheetProcessor {
                           } else if (clrScheme.srgbClr.isNotEmpty) {
                               bgColor = "#${clrScheme.srgbClr}";
                           }
+
+                          // Apply tint if available
+                          if (cellStyle.ssFill.fgClrTint.isNotEmpty) {
+                              double tint = double.parse(cellStyle.ssFill.fgClrTint);
+                              bgColor = ColorUtil.applyTint(bgColor, tint);
+                          }
+                      } else {
+                          print("No matching color scheme for themeId: ${cellStyle.ssFill.fgClrTheme}");
                       }
                   } else {
                       print("Unknown bgClrIndex: ${cellStyle.ssFill.bgClrIndex}");
@@ -625,7 +633,7 @@ class SpreadsheetProcessor {
               }
 
               stylesInner = "$stylesInner background-color: $bgColor;";
-              print("Resolved bgColor for cell: $bgColor (index: ${cellStyle.ssFill.bgClrIndex}, themeId: ${cellStyle.ssFill.fgClrTheme})");
+              print("Resolved bgColor for cell: $bgColor (index: ${cellStyle.ssFill.bgClrIndex}, themeId: ${cellStyle.ssFill.fgClrTheme}, tint: ${cellStyle.ssFill.fgClrTint})");
           }
         }
         if(cellStyle.border.id.isNotEmpty){
