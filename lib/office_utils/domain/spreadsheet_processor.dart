@@ -593,39 +593,14 @@ class SpreadsheetProcessor {
           }
         }
         if(cellStyle.ssFill.id.isNotEmpty){
-          if(cellStyle.ssFill.bgClrIndex.isNotEmpty){
-            String bgColor="#a5c6fa";
-            print(int.parse(cellStyle.ssFill.bgClrIndex).toString());
-            if(int.parse(cellStyle.ssFill.bgClrIndex)<64){
-              bgColor=IndexedColor().colors[int.parse(cellStyle.ssFill.bgClrIndex)];
-            }else if(cellStyle.ssFill.bgClrIndex=="64"){
-              var clrScheme=colorSchemes.firstWhereOrNull((clrSch){
-                return clrSch.id==cellStyle.ssFill.fgClrTheme;
-              });
-
-              if(clrScheme!=null){
-                if(clrScheme.sysClrLast.isNotEmpty){
-                  bgColor="#${clrScheme.sysClrLast}";
-                }else if(clrScheme.srgbClr.isNotEmpty){
-                  bgColor="#${clrScheme.srgbClr}";
-                }
-              }
-            }
-            stylesInner="$stylesInner background-color: $bgColor;";
-            print("Resolved bgColor for cell: $bgColor (index: ${cellStyle.ssFill.bgClrIndex}, themeId: ${cellStyle.ssFill.fgClrTheme})");
-          }
-/*
-          String? bgColor = ColorUtil.resolveExcelColor(
+          String bgColor = ColorUtil.resolveExcelColor(
               cellStyle.ssFill.bgClrIndex,
               cellStyle.ssFill.fgClrTheme,
-              colorSchemes
+              colorSchemes,
+              tint: cellStyle.ssFill.fgClrTint
           );
-          if (bgColor != null) {
-            stylesInner += " background-color: $bgColor;";
-          }
+          stylesInner="$stylesInner background-color: $bgColor;";
           print("Resolved bgColor for cell: $bgColor (index: ${cellStyle.ssFill.bgClrIndex}, themeId: ${cellStyle.ssFill.fgClrTheme})");
-*/
-
         }
         if(cellStyle.border.id.isNotEmpty){
 
@@ -684,35 +659,14 @@ class SpreadsheetProcessor {
           }
         }
         if(rowStyle.ssFill.id.isNotEmpty){
-          if(rowStyle.ssFill.bgClrIndex.isNotEmpty){
-            String bgColor="#a5c6fa";
-            if(int.parse(rowStyle.ssFill.bgClrIndex)<64){
-              bgColor=IndexedColor().colors[int.parse(rowStyle.ssFill.bgClrIndex)];
-            }else if(rowStyle.ssFill.bgClrIndex=="64"){
-              var clrScheme=colorSchemes.firstWhereOrNull((clrSch){
-                return clrSch.id==rowStyle.ssFill.fgClrTheme;
-              });
-
-              if(clrScheme!=null){
-                if(clrScheme.sysClrLast.isNotEmpty){
-                  bgColor="#${clrScheme.sysClrLast}";
-                }else if(clrScheme.srgbClr.isNotEmpty){
-                  bgColor="#${clrScheme.srgbClr}";
-                }
-              }
-            }
-            stylesInner="$stylesInner background-color: $bgColor;";
-            print("Resolved Row bgColor for cell: $bgColor (index: ${rowStyle.ssFill.bgClrIndex}, themeId: ${rowStyle.ssFill.fgClrTheme})");
-          }
-          /*String? bgColor = ColorUtil.resolveExcelColor(
+          String bgColor = ColorUtil.resolveExcelColor(
               rowStyle.ssFill.bgClrIndex,
               rowStyle.ssFill.fgClrTheme,
-              colorSchemes
+              colorSchemes,
+              tint: rowStyle.ssFill.fgClrTint
           );
-          if (bgColor != null) {
-            stylesInner += " background-color: $bgColor;";
-          }
-          print("Resolved bgColor for cell: $bgColor (index: ${rowStyle.ssFill.bgClrIndex}, themeId: ${rowStyle.ssFill.fgClrTheme})");*/
+          stylesInner="$stylesInner background-color: $bgColor;";
+          print("Resolved Row bgColor for cell: $bgColor (index: ${rowStyle.ssFill.bgClrIndex}, themeId: ${rowStyle.ssFill.fgClrTheme})");
         }
         if(rowStyle.border.id.isNotEmpty){
 
