@@ -602,7 +602,7 @@ class SpreadsheetProcessor {
           // Map numeric theme index to color scheme name
           String mappedThemeName = cellStyle.ssFill.fgClrTheme;
           // Fix regex: match only if fgClrTheme is all digits
-          if (RegExp(r'^\d+ d*').hasMatch(cellStyle.ssFill.fgClrTheme)) {
+          if (RegExp(r'^\\d+ d*').hasMatch(cellStyle.ssFill.fgClrTheme)) {
             switch (cellStyle.ssFill.fgClrTheme) {
               case '0':
               case '1': mappedThemeName = 'lt1'; break;
@@ -627,7 +627,7 @@ class SpreadsheetProcessor {
           );
           // Find the color scheme used (if any)
           var usedScheme = colorSchemes.firstWhereOrNull((c) => c.id == mappedThemeName || c.name == mappedThemeName);
-          print('[CELL COLOR DEBUG] cellStyle.ssFill: id=[36m${cellStyle.ssFill.id}[0m, bgClrIndex=${cellStyle.ssFill.bgClrIndex}, fgClrTheme=${cellStyle.ssFill.fgClrTheme}, mappedThemeName=$mappedThemeName, fgClrTint=${cellStyle.ssFill.fgClrTint}');
+          print('[CELL COLOR DEBUG] cellStyle.ssFill: id=${cellStyle.ssFill.id}, bgClrIndex=${cellStyle.ssFill.bgClrIndex}, fgClrTheme=${cellStyle.ssFill.fgClrTheme}, mappedThemeName=$mappedThemeName, fgClrTint=${cellStyle.ssFill.fgClrTint}');
           print('[CELL COLOR DEBUG] Used color scheme: ${usedScheme != null ? 'id=${usedScheme.id}, name=${usedScheme.name}, srgbClr=${usedScheme.srgbClr}, sysClrLast=${usedScheme.sysClrLast}' : 'NONE'}');
           print('[CELL COLOR DEBUG] Resolved bgColor: $bgColor (index: ${cellStyle.ssFill.bgClrIndex}, themeId: $mappedThemeName, tint: ${cellStyle.ssFill.fgClrTint})');
           stylesInner="${stylesInner} background-color: $bgColor;";
