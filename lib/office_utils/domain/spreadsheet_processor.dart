@@ -117,6 +117,7 @@ class SpreadsheetProcessor {
                 }
               }
             }
+            print("Name: ${fills.length.toString()},Fill: $type, Theme: $clrTheme, Tint: $clrTint, Index: $clrIndex");
             fills.add(SSFill(fills.length.toString(),type , clrTheme, clrTint, clrIndex));
           }
         }
