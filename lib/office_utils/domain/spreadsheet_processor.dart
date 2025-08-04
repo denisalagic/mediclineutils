@@ -313,9 +313,9 @@ class SpreadsheetProcessor {
             srgbClr=tempSrgbClr;
           }
         }
-        print('Color Scheme: $name, sysClrName: $sysClrName, sysClrLast: $sysClrLast, srgbClr: $srgbClr');
-        //colorSchemes.add(SSColorSchemes(colorSchemes.length.toString(), name, sysClrName, sysClrLast, srgbClr));
-        colorSchemes.add(SSColorSchemes(name, name, sysClrName, sysClrLast, srgbClr));
+        print('Color lemgth: ${colorSchemes.length.toString()} Color Scheme: $name, sysClrName: $sysClrName, sysClrLast: $sysClrLast, srgbClr: $srgbClr');
+        colorSchemes.add(SSColorSchemes(colorSchemes.length.toString(), name, sysClrName, sysClrLast, srgbClr));
+        //colorSchemes.add(SSColorSchemes(name, name, sysClrName, sysClrLast, srgbClr));
       }
     }
   }
