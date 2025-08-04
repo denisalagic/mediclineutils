@@ -605,8 +605,12 @@ class SpreadsheetProcessor {
               colorSchemes,
               tint: cellStyle.ssFill.fgClrTint
           );
+          // Find the color scheme used (if any)
+          var usedScheme = colorSchemes.firstWhereOrNull((c) => c.id == cellStyle.ssFill.fgClrTheme || c.name == cellStyle.ssFill.fgClrTheme);
+          print('[CELL COLOR DEBUG] cellStyle.ssFill: id=${cellStyle.ssFill.id}, bgClrIndex=${cellStyle.ssFill.bgClrIndex}, fgClrTheme=${cellStyle.ssFill.fgClrTheme}, fgClrTint=${cellStyle.ssFill.fgClrTint}');
+          print('[CELL COLOR DEBUG] Used color scheme: ${usedScheme != null ? 'id=${usedScheme.id}, name=${usedScheme.name}, srgbClr=${usedScheme.srgbClr}, sysClrLast=${usedScheme.sysClrLast}' : 'NONE'}');
+          print('[CELL COLOR DEBUG] Resolved bgColor: $bgColor (index: ${cellStyle.ssFill.bgClrIndex}, themeId: ${cellStyle.ssFill.fgClrTheme}, tint: ${cellStyle.ssFill.fgClrTint})');
           stylesInner="$stylesInner background-color: $bgColor;";
-          print("Resolved bgColor for cell: $bgColor (index: ${cellStyle.ssFill.bgClrIndex}, themeId: ${cellStyle.ssFill.fgClrTheme})");
         }
         if(cellStyle.border.id.isNotEmpty){
 
