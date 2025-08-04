@@ -597,41 +597,36 @@ class SpreadsheetProcessor {
           }
         }
         if(cellStyle.ssFill.id.isNotEmpty){
-          if(cellStyle.ssFill.bgClrIndex.isNotEmpty){
-            String bgColor="#a5c6fa";
-            print(int.parse(cellStyle.ssFill.bgClrIndex).toString());
-            if(int.parse(cellStyle.ssFill.bgClrIndex)<64){
-              bgColor=IndexedColor().colors[int.parse(cellStyle.ssFill.bgClrIndex)];
-            }else if(cellStyle.ssFill.bgClrIndex=="64"){
-              var clrScheme=colorSchemes.firstWhereOrNull((clrSch){
-                return clrSch.id==cellStyle.ssFill.fgClrTheme;
-              });
+          // Enhanced logic for resolving colors based on clrIndex and fgClrTheme
+          if (cellStyle.ssFill.bgClrIndex.isNotEmpty) {
+              String bgColor = "#a5c6fa"; // Default fallback color
 
-              if(clrScheme!=null){
-                if(clrScheme.sysClrLast.isNotEmpty){
-                  bgColor="#${clrScheme.sysClrLast}";
-                }else if(clrScheme.srgbClr.isNotEmpty){
-                  bgColor="#${clrScheme.srgbClr}";
-                }
+              try {
+                  int index = int.parse(cellStyle.ssFill.bgClrIndex);
+                  if (index < 64) {
+                      bgColor = IndexedColor().colors[index];
+                  } else if (cellStyle.ssFill.bgClrIndex == "64") {
+                      var clrScheme = colorSchemes.firstWhereOrNull((clrSch) {
+                          return clrSch.id == cellStyle.ssFill.fgClrTheme;
+                      });
+
+                      if (clrScheme != null) {
+                          if (clrScheme.sysClrLast.isNotEmpty) {
+                              bgColor = "#${clrScheme.sysClrLast}";
+                          } else if (clrScheme.srgbClr.isNotEmpty) {
+                              bgColor = "#${clrScheme.srgbClr}";
+                          }
+                      }
+                  } else {
+                      print("Unknown bgClrIndex: ${cellStyle.ssFill.bgClrIndex}");
+                  }
+              } catch (e) {
+                  print("Error parsing bgClrIndex: ${cellStyle.ssFill.bgClrIndex}, error: $e");
               }
-            } else {
-              print("Unknown bgClrIndex: ${cellStyle.ssFill.bgClrIndex}");
-            }
-            stylesInner="$stylesInner background-color: $bgColor;";
-            print("Resolved bgColor for cell: $bgColor (index: ${cellStyle.ssFill.bgClrIndex}, themeId: ${cellStyle.ssFill.fgClrTheme})");
-          }
-/*
-          String? bgColor = ColorUtil.resolveExcelColor(
-              cellStyle.ssFill.bgClrIndex,
-              cellStyle.ssFill.fgClrTheme,
-              colorSchemes
-          );
-          if (bgColor != null) {
-            stylesInner += " background-color: $bgColor;";
-          }
-          print("Resolved bgColor for cell: $bgColor (index: ${cellStyle.ssFill.bgClrIndex}, themeId: ${cellStyle.ssFill.fgClrTheme})");
-*/
 
+              stylesInner = "$stylesInner background-color: $bgColor;";
+              print("Resolved bgColor for cell: $bgColor (index: ${cellStyle.ssFill.bgClrIndex}, themeId: ${cellStyle.ssFill.fgClrTheme})");
+          }
         }
         if(cellStyle.border.id.isNotEmpty){
 
