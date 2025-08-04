@@ -288,6 +288,7 @@ class SpreadsheetProcessor {
   void processColorSchemes(ArchiveFile themeFile,List<SSColorSchemes> colorSchemes){
     final fileContent = utf8.decode(themeFile.content);
     final themeDoc = xml.XmlDocument.parse(fileContent);
+    print(themeDoc);
     var colorSchemeRoot = themeDoc.findAllElements("a:clrScheme");
     if(colorSchemeRoot.isNotEmpty){
       for(var clrSch in colorSchemeRoot.first.childElements){
