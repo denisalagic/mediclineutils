@@ -287,36 +287,36 @@ class SpreadsheetProcessor {
     }
 
   }
-  void processColorSchemes(ArchiveFile themeFile,List<SSColorSchemes> colorSchemes){
+  void processColorSchemes(ArchiveFile themeFile, List<SSColorSchemes> colorSchemes) {
     final fileContent = utf8.decode(themeFile.content);
     final themeDoc = xml.XmlDocument.parse(fileContent);
     var colorSchemeRoot = themeDoc.findAllElements("a:clrScheme");
-    if(colorSchemeRoot.isNotEmpty){
-      for(var clrSch in colorSchemeRoot.first.childElements){
-        String name="", sysClrName="", sysClrLast="", srgbClr="";
-        name=clrSch.name.local;
-        var chkSysClr=clrSch.findAllElements("a:sysClr");
-        if(chkSysClr.isNotEmpty){
-          var tempClrName=chkSysClr.first.getAttribute("val");
-          if(tempClrName!=null){
-            sysClrName=tempClrName;
-          }
-          var tempClrLast=chkSysClr.first.getAttribute("lastClr");
-          if(tempClrLast!=null){
-            sysClrLast=tempClrLast;
-          }
+    if (colorSchemeRoot.isNotEmpty) {
+      for (var clrSch in colorSchemeRoot.first.childElements) {
+        String name = "", sysClrName = "", sysClrLast = "", srgbClr = "";
+        name = clrSch.name.local;
+
+        // Handle system color
+        var chkSysClr = clrSch.findAllElements("a:sysClr");
+        if (chkSysClr.isNotEmpty) {
+          sysClrName = chkSysClr.first.getAttribute("val") ?? "defaultSysClr";
+          sysClrLast = chkSysClr.first.getAttribute("lastClr") ?? "defaultLastClr";
         }
-        var chksrgbClr=clrSch.findAllElements("a:srgbClr");
-        if(chksrgbClr.isNotEmpty){
-          var tempSrgbClr=chksrgbClr.first.getAttribute("val");
-          if(tempSrgbClr!=null){
-            srgbClr=tempSrgbClr;
-          }
+
+        // Handle sRGB color
+        var chksrgbClr = clrSch.findAllElements("a:srgbClr");
+        if (chksrgbClr.isNotEmpty) {
+          srgbClr = chksrgbClr.first.getAttribute("val") ?? "defaultSrgbClr";
         }
-        print('Color lemgth: ${colorSchemes.length.toString()} Color Scheme: $name, sysClrName: $sysClrName, sysClrLast: $sysClrLast, srgbClr: $srgbClr');
+
+        // Log parsed color scheme
+        print('Color length: ${colorSchemes.length} Color Scheme: $name, sysClrName: $sysClrName, sysClrLast: $sysClrLast, srgbClr: $srgbClr');
+
+        // Add to color schemes
         colorSchemes.add(SSColorSchemes(colorSchemes.length.toString(), name, sysClrName, sysClrLast, srgbClr));
-        //colorSchemes.add(SSColorSchemes(name, name, sysClrName, sysClrLast, srgbClr));
       }
+    } else {
+      print("No color schemes found in the theme file.");
     }
   }
 
