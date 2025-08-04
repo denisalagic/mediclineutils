@@ -599,18 +599,38 @@ class SpreadsheetProcessor {
           }
         }
         if(cellStyle.ssFill.id.isNotEmpty){
+          // Map numeric theme index to color scheme name
+          String mappedThemeName = cellStyle.ssFill.fgClrTheme;
+          // Fix regex: match only if fgClrTheme is all digits
+          if (RegExp(r'^\d+ d*').hasMatch(cellStyle.ssFill.fgClrTheme)) {
+            switch (cellStyle.ssFill.fgClrTheme) {
+              case '0':
+              case '1': mappedThemeName = 'lt1'; break;
+              case '2':
+              case '3': mappedThemeName = 'dk1'; break;
+              case '4': mappedThemeName = 'accent1'; break;
+              case '5': mappedThemeName = 'accent2'; break;
+              case '6': mappedThemeName = 'accent3'; break;
+              case '7': mappedThemeName = 'accent4'; break;
+              case '8': mappedThemeName = 'accent5'; break;
+              case '9': mappedThemeName = 'accent6'; break;
+              case '10': mappedThemeName = 'hlink'; break;
+              case '11': mappedThemeName = 'folHlink'; break;
+            }
+          }
+          // Always use mappedThemeName for color lookup
           String bgColor = ColorUtil.resolveExcelColor(
               cellStyle.ssFill.bgClrIndex,
-              cellStyle.ssFill.fgClrTheme,
+              mappedThemeName, // use mapped theme name
               colorSchemes,
               tint: cellStyle.ssFill.fgClrTint
           );
           // Find the color scheme used (if any)
-          var usedScheme = colorSchemes.firstWhereOrNull((c) => c.id == cellStyle.ssFill.fgClrTheme || c.name == cellStyle.ssFill.fgClrTheme);
-          print('[CELL COLOR DEBUG] cellStyle.ssFill: id=${cellStyle.ssFill.id}, bgClrIndex=${cellStyle.ssFill.bgClrIndex}, fgClrTheme=${cellStyle.ssFill.fgClrTheme}, fgClrTint=${cellStyle.ssFill.fgClrTint}');
+          var usedScheme = colorSchemes.firstWhereOrNull((c) => c.id == mappedThemeName || c.name == mappedThemeName);
+          print('[CELL COLOR DEBUG] cellStyle.ssFill: id=[36m${cellStyle.ssFill.id}[0m, bgClrIndex=${cellStyle.ssFill.bgClrIndex}, fgClrTheme=${cellStyle.ssFill.fgClrTheme}, mappedThemeName=$mappedThemeName, fgClrTint=${cellStyle.ssFill.fgClrTint}');
           print('[CELL COLOR DEBUG] Used color scheme: ${usedScheme != null ? 'id=${usedScheme.id}, name=${usedScheme.name}, srgbClr=${usedScheme.srgbClr}, sysClrLast=${usedScheme.sysClrLast}' : 'NONE'}');
-          print('[CELL COLOR DEBUG] Resolved bgColor: $bgColor (index: ${cellStyle.ssFill.bgClrIndex}, themeId: ${cellStyle.ssFill.fgClrTheme}, tint: ${cellStyle.ssFill.fgClrTint})');
-          stylesInner="$stylesInner background-color: $bgColor;";
+          print('[CELL COLOR DEBUG] Resolved bgColor: $bgColor (index: ${cellStyle.ssFill.bgClrIndex}, themeId: $mappedThemeName, tint: ${cellStyle.ssFill.fgClrTint})');
+          stylesInner="${stylesInner} background-color: $bgColor;";
         }
         if(cellStyle.border.id.isNotEmpty){
 
