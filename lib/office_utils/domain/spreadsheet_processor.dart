@@ -602,7 +602,7 @@ class SpreadsheetProcessor {
           // Map numeric theme index to color scheme name
           String mappedThemeName = cellStyle.ssFill.fgClrTheme;
           // Fix regex: match only if fgClrTheme is all digits
-          if (RegExp(r'^\\d+ d*').hasMatch(cellStyle.ssFill.fgClrTheme)) {
+          if (RegExp(r'^\\d+$').hasMatch(cellStyle.ssFill.fgClrTheme)) {
             switch (cellStyle.ssFill.fgClrTheme) {
               case '0':
               case '1': mappedThemeName = 'lt1'; break;
