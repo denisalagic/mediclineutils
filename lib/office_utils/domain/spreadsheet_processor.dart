@@ -606,24 +606,34 @@ class SpreadsheetProcessor {
                   if (index < 64) {
                       bgColor = IndexedColor().colors[index];
                   } else if (cellStyle.ssFill.bgClrIndex == "64") {
-                      var clrScheme = colorSchemes.firstWhereOrNull((clrSch) {
-                          return clrSch.id == cellStyle.ssFill.fgClrTheme;
-                      });
-
-                      if (clrScheme != null) {
-                          if (clrScheme.sysClrLast.isNotEmpty) {
-                              bgColor = "#${clrScheme.sysClrLast}";
-                          } else if (clrScheme.srgbClr.isNotEmpty) {
-                              bgColor = "#${clrScheme.srgbClr}";
-                          }
-
-                          // Apply tint if available
-                          if (cellStyle.ssFill.fgClrTint.isNotEmpty) {
-                              double tint = double.parse(cellStyle.ssFill.fgClrTint);
-                              bgColor = ColorUtil.applyTint(bgColor, tint);
-                          }
+                      if (cellStyle.ssFill.fgClrTheme.isEmpty) {
+                          print("Empty themeId for bgClrIndex: ${cellStyle.ssFill.bgClrIndex}");
                       } else {
-                          print("No matching color scheme for themeId: ${cellStyle.ssFill.fgClrTheme}");
+                          var clrScheme = colorSchemes.firstWhereOrNull((clrSch) {
+                              return clrSch.id == cellStyle.ssFill.fgClrTheme;
+                          });
+
+                          if (clrScheme != null) {
+                              if (clrScheme.sysClrLast.isNotEmpty) {
+                                  bgColor = "#${clrScheme.sysClrLast}";
+                              } else if (clrScheme.srgbClr.isNotEmpty) {
+                                  bgColor = "#${clrScheme.srgbClr}";
+                              } else {
+                                  print("No valid color found in clrScheme: sysClrLast='${clrScheme.sysClrLast}', srgbClr='${clrScheme.srgbClr}'");
+                              }
+
+                              // Apply tint if available
+                              if (cellStyle.ssFill.fgClrTint.isNotEmpty) {
+                                  try {
+                                      double tint = double.parse(cellStyle.ssFill.fgClrTint);
+                                      bgColor = ColorUtil.applyTint(bgColor, tint);
+                                  } catch (e) {
+                                      print("Error parsing tint value: ${cellStyle.ssFill.fgClrTint}, error: $e");
+                                  }
+                              }
+                          } else {
+                              print("No matching clrScheme found for themeId: ${cellStyle.ssFill.fgClrTheme}");
+                          }
                       }
                   } else {
                       print("Unknown bgClrIndex: ${cellStyle.ssFill.bgClrIndex}");
