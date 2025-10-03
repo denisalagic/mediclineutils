@@ -12,12 +12,15 @@ dependencies:
     sdk: flutter
   http: ^1.4.0
   xml: ^6.5.0
-  archive: ^4.0.7
+  archive: ^3.6.1
   path_provider: ^2.1.5
   flutter_widget_from_html: ^0.16.0
   collection: ^1.19.1
   flutter_isolate: ^2.1.0
   intl: ^0.20.2
+  excel: ^4.0.0
+  firebase_storage: ^11.0.0
+  firebase_database: ^10.0.0
 
 dev_dependencies:
   flutter_test:
